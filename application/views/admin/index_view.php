@@ -9,9 +9,10 @@
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/css/main.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/bower_components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/dist/css/skins/skin-green-light.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-green-light sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -36,8 +37,6 @@
   <aside class="main-sidebar">
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">NAVIGASI UTAMA</li>
-
         <li>
           <a href="<?= site_url('admin/obat');?>">
             <i class="fa fa fa-plus-square"></i><span>Obat</span>
@@ -89,8 +88,6 @@
 <script src="<?= base_url();?>assets/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url();?>assets/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?= base_url();?>assets/dist/js/demo.js"></script>
 <script>
   $(document).ready(function () {
     $('.sidebar-menu').tree()

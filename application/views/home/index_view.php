@@ -9,23 +9,24 @@
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/css/main.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/bower_components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/dist/css/skins/skin-blue-light.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
     <a href="<?= base_url(); ?>" class="logo">
-      <span class="logo-mini"><b>H</b>B</span>
+      <span class="logo-mini"><b>A</b>B</span>
       <span class="logo-lg"><b>Apotek&nbsp;</b>Berkah</span>
     </a>
     <nav class="navbar navbar-static-top">
-      <!-- <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-      </a> -->
+      </a>
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
@@ -36,7 +37,6 @@
   <aside class="main-sidebar">
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">NAVIGASI UTAMA</li>
         <li>
           <a href="<?= site_url('konfirmasi');?>">
             <i class="fa fa-check-square-o"></i><span>KONFIRMASI PEMBELIAN</span>

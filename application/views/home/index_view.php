@@ -74,13 +74,8 @@
     <section class="content-header">
     </section>
     <section class="content">
-        <div class="box-body">
-          <?php $this->load->view('home/'. $view_name); ?>
-        </div>
-        <div class="box-footer">
-          Buatan Hasbi
-        </div>
-        
+      <div class="box-body">
+        <?php $this->load->view('home/'. $view_name); ?>
       </div>
     </section>
   </div>

@@ -80,13 +80,8 @@
       </h1>
     </section>
     <section class="content">
-        <div class="box-body">
-          <?php $this->load->view('admin/'. $view_name); ?>
-        </div>
-        <div class="box-footer">
-          Buatan Hasbi
-        </div>
-        
+      <div class="box-body">
+        <?php $this->load->view('admin/'. $view_name); ?>
       </div>
     </section>
   </div>

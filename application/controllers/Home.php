@@ -150,6 +150,7 @@ class Home extends CI_Controller {
       }
     }
     else {
+      $data['view_title'] = 'Konfirmasi Pembayaran';
       $data['view_name'] = 'konfirmasi';
       $data['message'] = $this->session->flashdata('msg');
 

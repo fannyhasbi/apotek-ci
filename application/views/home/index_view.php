@@ -42,7 +42,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li>
           <a href="<?= site_url('konfirmasi');?>">
-            <i class="fa fa-check-square-o"></i><span>KONFIRMASI PEMBELIAN</span>
+            <i class="fa fa-check-square-o"></i><span>KONFIRMASI PEMBAYARAN</span>
           </a>
         </li>
         <li>
@@ -65,11 +65,10 @@
   </aside>
   <div class="content-wrapper">
     <section class="content-header">
+      <?= isset($view_title) ? '<h1>' . $view_title . '</h1>' : ''; ?>
     </section>
     <section class="content">
-      <div class="box-body">
-        <?php $this->load->view('home/'. $view_name); ?>
-      </div>
+      <?php $this->load->view('home/'. $view_name); ?>
     </section>
   </div>
   <div class="control-sidebar-bg"></div>

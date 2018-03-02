@@ -97,8 +97,6 @@ class Home extends CI_Controller {
       }
     }
     else {
-      $data['view_name'] = 'cek';
-
       $data = array(
         'view_name' => 'cek',
         'message'   => $this->session->flashdata('msg'),

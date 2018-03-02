@@ -32,6 +32,7 @@ class Home extends CI_Controller {
   public function obat($kode_obat = NULL){
     $this->cekSession();
     if($kode_obat == NULL){
+      $data['view_title'] = 'Obat Yang Kami Jual';
       $data['view_name'] = 'daftar_obat';
       $data['obat'] = $this->home_model->getObat();
 

@@ -96,7 +96,9 @@
   <?php if(uri_string() == 'obat'){ ?>
 
     $(function() {
-      $("#tabeldata").DataTable();
+      $("#tabeldata").DataTable({
+        "pagingType": "first_last_numbers"
+      });
     })
 
   <?php } ?>

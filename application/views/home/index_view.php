@@ -46,6 +46,16 @@
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
         <li>
+          <a href="<?= site_url('obat');?>">
+            <i class="fa fa-plus-square"></i> <span>DAFTAR OBAT</span>
+          </a>
+        </li>
+        <li>
+          <a href="<?= site_url('beli');?>">
+            <i class="fa fa-cart-plus"></i> <span>KERANJANG</span>
+          </a>
+        </li>
+        <li>
           <a href="<?= site_url('konfirmasi');?>">
             <i class="fa fa-check-square-o"></i><span>KONFIRMASI PEMBAYARAN</span>
           </a>
@@ -53,16 +63,6 @@
         <li>
           <a href="<?= site_url('cek');?>">
             <i class="fa fa-list-alt"></i><span>CEK PEMBELIAN</span>
-          </a>
-        </li>
-        <li>
-          <a href="<?= site_url('obat');?>">
-            <i class="fa fa-plus-square"></i> <span>DAFTAR OBAT</span>
-          </a>
-        </li>
-        <li>
-          <a href="<?= site_url('beli');?>">
-            <i class="fa fa-cart-plus"></i> <span>BELI</span>
           </a>
         </li>
       </ul>

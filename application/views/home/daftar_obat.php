@@ -3,8 +3,8 @@
   <h1>Daftar Obat</h1>
 </div>
 
-<div class="container" style="margin-bottom: 50px;">
-  <table class="table table-bordered table-hover">
+<div class="container-fluid">
+  <table id="tabeldata" class="table table-bordered table-hover">
     <thead>
       <tr>
         <th>Nama</th>

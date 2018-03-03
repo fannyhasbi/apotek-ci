@@ -1,0 +1,12 @@
+.jumbotron {
+  background-color: #00a65a; /* 4cb5f5, b7b8b6, 34675c, b3c100 */
+  color: #fff;
+  padding: 100px 25px;
+}
+
+.tombol {
+  border: none;
+  color: white;
+  padding: 14px 28px;
+  cursor: pointer;
+}

@@ -71,7 +71,6 @@ $jumlah_keranjang = $this->db->query($q)->row()->jumlah;
       </section>
     </div>
   </div>
-  <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 

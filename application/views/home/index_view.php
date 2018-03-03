@@ -1,3 +1,7 @@
+<?php
+$q = "SELECT COUNT(*) AS jumlah FROM keranjang WHERE id_session = '". $this->session->userdata('id_session') ."'";
+$jumlah_keranjang = $this->db->query($q)->row()->jumlah;
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +50,7 @@
             <li>
               <a href="<?= site_url('beli'); ?>">
                 <i class="fa fa-shopping-cart"></i>
-                <span class="label label-warning">4</span>
+                <span class="label label-warning"><?= $jumlah_keranjang; ?></span>
               </a>
             </li>
           </ul>

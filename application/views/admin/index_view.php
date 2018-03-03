@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Apotek Berkah</title>
+  <title>Admin | Apotek Berkah</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/css/main_admin.css">
+  <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/css/main.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/bower_components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/dist/css/AdminLTE.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/dist/css/skins/skin-green-light.min.css">
@@ -140,8 +140,19 @@
 <script src="<?= base_url();?>assets/dist/js/adminlte.min.js"></script>
 <script>
   $(document).ready(function () {
-    $('.sidebar-menu').tree()
-  })
+    $('.sidebar-menu').tree();
+  });
+
+  <?php if(uri_string() == 'admin/obat'){ ?>
+    const x = (window.innerWidth > 768) ? false : true;
+    $(function() {
+      $("#tabeldata").DataTable({
+        "scrollX": x,
+        "pagingType": "first_last_numbers"
+      });
+    });
+
+  <?php } ?>
 </script>
 </body>
 </html>

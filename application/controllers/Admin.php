@@ -86,6 +86,7 @@ class Admin extends CI_Controller {
     //didapat dari penghapusan obat
     $data['message'] = $this->session->flashdata('msg');
 
+    $data['view_title'] = 'Daftar Obat';
     $data['view_name'] = 'daftar_obat';
     $this->load->view('admin/index_view', $data);
   }

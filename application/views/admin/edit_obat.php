@@ -5,7 +5,7 @@
 
 <div class="container" style="margin-bottom: 50px">
   <div class="col-md-offset-3 col-md-6">
-    <form action="<?= site_url('admin/obat/daftar/'.$obat->kode_obat);?>" method="post">
+    <form action="<?= site_url('admin/obat/edit/'.$obat->kode_obat);?>" method="post">
       <?= $message; ?>
       <div class="row">
         <div class="col-md-6">

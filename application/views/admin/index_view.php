@@ -94,7 +94,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?= site_url('admin/obat/daftar'); ?>"><i class="fa fa-circle-o"></i> Daftar Obat</a></li>
+            <li><a href="<?= site_url('admin/obat'); ?>"><i class="fa fa-circle-o"></i> Daftar Obat</a></li>
             <li><a href="<?= site_url('admin/obat/tambah'); ?>"><i class="fa fa-circle-o"></i> Tambah Obat</a></li>
           </ul>
         </li>

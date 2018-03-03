@@ -18,9 +18,8 @@ $route['login'] = 'admin/login';
 $route['admin/logout'] = 'admin/logout';
 $route['admin/transaksi'] = 'admin/transaksi';
 $route['admin/transaksi/(:any)'] = 'admin/transaksi/$1';
-$route['admin/obat'] = 'admin/obat';
-$route['admin/obat/daftar'] = 'admin/daftar_obat';
-$route['admin/obat/daftar/(:any)'] = 'admin/edit_obat/$1';
+$route['admin/obat'] = 'admin/daftar_obat';
+$route['admin/obat/edit/(:any)'] = 'admin/edit_obat/$1';
 $route['admin/obat/tambah'] = 'admin/tambah_obat';
 $route['admin/obat/hapus/(:any)'] = 'admin/hapus_obat/$1';
 

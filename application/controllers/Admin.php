@@ -78,13 +78,6 @@ class Admin extends CI_Controller {
     }
   }
 
-  public function obat(){
-    $this->cekLogin();
-
-    $data['view_name'] = 'obat';
-    $this->load->view('admin/index_view', $data);
-  }
-
   public function daftar_obat(){
     $this->cekLogin();
 
@@ -123,7 +116,7 @@ class Admin extends CI_Controller {
         $this->session->set_flashdata('msg', '<div class="alert alert-success">Obat dengan kode <b>'.$kode .'</b> berhasil diupdate</div>');
       else
         $this->session->set_flashdata('msg', '<div class="alert alert-danger"><b>Terjadi kesalahan</b>, obat '. $kode .' gagal diupdate</div>');
-      redirect(site_url('admin/obat/daftar/'.$kode));
+      redirect(site_url('admin/obat/edit/'.$kode));
     }
     else {
       $data['obat'] = $this->home_model->getObat($kode);
@@ -139,11 +132,11 @@ class Admin extends CI_Controller {
 
     if($this->admin_model->deleteObat($kode)){
       $this->session->set_flashdata('msg', '<div class="alert alert-success text-center">Obat dengan kode <mark>'. $kode ."'</mark> berhasil dihapus</div>");
-      redirect(site_url('admin/obat/daftar'));
+      redirect(site_url('admin/obat'));
     }
     else{
       $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Obat dengan kode <mark>'. $kode ."</mark> gagal dihapus</div>");
-      redirect(site_url('admin/obat/daftar'));
+      redirect(site_url('admin/obat'));
     }
   }
 

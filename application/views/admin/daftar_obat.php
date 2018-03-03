@@ -22,7 +22,7 @@
       <td><?= $item->konsumen; ?></td>
       <td><?= 'Rp '. number_format($item->harga, 0, ',', '.'); ?></td>
       <td>
-        <a href="<?= site_url('admin/obat/daftar/'.$item->kode_obat);?>"><span class="glyphicon glyphicon-pencil"></span> Edit</a> | 
+        <a href="<?= site_url('admin/obat/edit/'.$item->kode_obat);?>"><span class="glyphicon glyphicon-pencil"></span> Edit</a> | 
         <a data-toggle="modal" href="#<?= $item->kode_obat; ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
         <div id="<?= $item->kode_obat?>" class="modal fade" role="dialog">
           <div class="modal-dialog">

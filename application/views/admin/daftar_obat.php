@@ -11,7 +11,7 @@
             <th>Bentuk</th>
             <th>Konsumen</th>
             <th>Harga</th>
-            <td>Action</td>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -21,7 +21,7 @@
             <td><?= $item->nama; ?></td>
             <td><?= $item->bentuk; ?></td>
             <td><?= $item->konsumen; ?></td>
-            <td><?= 'Rp '. number_format($item->harga, 0, ',', '.'); ?></td>
+            <td><?= number_format($item->harga, 0, ',', '.'); ?></td>
             <td>
               <a href="<?= site_url('admin/obat/edit/'.$item->kode_obat);?>" class="text-primary"><span class="glyphicon glyphicon-pencil"></span> Edit</a> | 
               <a data-toggle="modal" href="#<?= $item->kode_obat; ?>" class="text-danger"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
@@ -30,10 +30,10 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Hapus Obat</h4>
+                      <h4 class="modal-title">Hapus Obat <?= $item->nama; ?></h4>
                     </div>
                     <div class="modal-body">
-                      <h5>Hapus obat :&nbsp;<?= $item->nama; ?></h5>
+                      <p>Apakah anda yakin ingin menghapus obat ini?</p>
                     </div>
                     <div class="modal-footer">
                       <a type="button" class="btn btn-danger" href="<?= site_url('admin/obat/hapus/'.$item->kode_obat);?>">Hapus</a>

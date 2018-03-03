@@ -124,6 +124,7 @@ class Admin extends CI_Controller {
       $data['obat'] = $this->home_model->getObat($kode);
       $data['message'] = $this->session->flashdata('msg');
 
+      $data['view_title'] = 'Edit Obat <span class="text-info">'. $data['obat']->nama .'</span>';
       $data['view_name'] = 'edit_obat';
       $this->load->view('admin/index_view', $data);
     }

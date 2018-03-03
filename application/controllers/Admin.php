@@ -104,6 +104,7 @@ class Admin extends CI_Controller {
     else {
       $data['message'] = $this->session->flashdata('msg');
 
+      $data['view_title'] = 'Tambah Obat';
       $data['view_name'] = 'tambah_obat';
       $this->load->view('admin/index_view', $data);
     }

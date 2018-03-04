@@ -65,6 +65,7 @@ class Admin extends CI_Controller {
     if($kode == NULL){
       $data['transaksi'] = $this->admin_model->getPemesanan();
 
+      $data['view_title'] = 'Transaksi Pembelian';
       $data['view_name'] = 'transaksi';
       $this->load->view('admin/index_view', $data);
     }
@@ -73,16 +74,10 @@ class Admin extends CI_Controller {
       $data['detail_pemesanan'] = $this->admin_model->getDetailPemesanan($kode);
       $data['pembeli'] = $this->admin_model->getDetailPembeliByPemesanan($kode);
 
+      $data['view_title'] = 'Detail Transaksi '. $data['pemesanan']->kode_pesan;
       $data['view_name'] = 'transaksi_detail';
       $this->load->view('admin/index_view', $data);
     }
-  }
-
-  public function obat(){
-    $this->cekLogin();
-
-    $data['view_name'] = 'obat';
-    $this->load->view('admin/index_view', $data);
   }
 
   public function daftar_obat(){
@@ -93,6 +88,7 @@ class Admin extends CI_Controller {
     //didapat dari penghapusan obat
     $data['message'] = $this->session->flashdata('msg');
 
+    $data['view_title'] = 'Daftar Obat';
     $data['view_name'] = 'daftar_obat';
     $this->load->view('admin/index_view', $data);
   }
@@ -110,6 +106,7 @@ class Admin extends CI_Controller {
     else {
       $data['message'] = $this->session->flashdata('msg');
 
+      $data['view_title'] = 'Tambah Obat';
       $data['view_name'] = 'tambah_obat';
       $this->load->view('admin/index_view', $data);
     }
@@ -123,12 +120,13 @@ class Admin extends CI_Controller {
         $this->session->set_flashdata('msg', '<div class="alert alert-success">Obat dengan kode <b>'.$kode .'</b> berhasil diupdate</div>');
       else
         $this->session->set_flashdata('msg', '<div class="alert alert-danger"><b>Terjadi kesalahan</b>, obat '. $kode .' gagal diupdate</div>');
-      redirect(site_url('admin/obat/daftar/'.$kode));
+      redirect(site_url('admin/obat/edit/'.$kode));
     }
     else {
       $data['obat'] = $this->home_model->getObat($kode);
       $data['message'] = $this->session->flashdata('msg');
 
+      $data['view_title'] = 'Edit Obat <span class="text-info">'. $data['obat']->nama .'</span>';
       $data['view_name'] = 'edit_obat';
       $this->load->view('admin/index_view', $data);
     }
@@ -139,11 +137,11 @@ class Admin extends CI_Controller {
 
     if($this->admin_model->deleteObat($kode)){
       $this->session->set_flashdata('msg', '<div class="alert alert-success text-center">Obat dengan kode <mark>'. $kode ."'</mark> berhasil dihapus</div>");
-      redirect(site_url('admin/obat/daftar'));
+      redirect(site_url('admin/obat'));
     }
     else{
       $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Obat dengan kode <mark>'. $kode ."</mark> gagal dihapus</div>");
-      redirect(site_url('admin/obat/daftar'));
+      redirect(site_url('admin/obat'));
     }
   }
 

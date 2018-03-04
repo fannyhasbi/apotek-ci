@@ -32,6 +32,7 @@ class Home extends CI_Controller {
   public function obat($kode_obat = NULL){
     $this->cekSession();
     if($kode_obat == NULL){
+      $data['view_title'] = 'Obat Yang Kami Jual';
       $data['view_name'] = 'daftar_obat';
       $data['obat'] = $this->home_model->getObat();
 
@@ -97,8 +98,6 @@ class Home extends CI_Controller {
       }
     }
     else {
-      $data['view_name'] = 'cek';
-
       $data = array(
         'view_name' => 'cek',
         'message'   => $this->session->flashdata('msg'),
@@ -150,6 +149,7 @@ class Home extends CI_Controller {
       }
     }
     else {
+      $data['view_title'] = 'Konfirmasi Pembayaran';
       $data['view_name'] = 'konfirmasi';
       $data['message'] = $this->session->flashdata('msg');
 

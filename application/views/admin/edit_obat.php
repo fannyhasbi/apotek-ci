@@ -1,11 +1,7 @@
 
-<div class="jumbotron text-center">
-  <h2>TAMBAH OBAT</h2>
-</div>
-
-<div class="container" style="margin-bottom: 50px">
-  <div class="col-md-offset-3 col-md-6">
-    <form action="<?= site_url('admin/obat/daftar/'.$obat->kode_obat);?>" method="post">
+<div class="box box-primary">
+  <div class="box-body">
+    <form action="<?= site_url('admin/obat/edit/'.$obat->kode_obat);?>" method="post">
       <?= $message; ?>
       <div class="row">
         <div class="col-md-6">
@@ -47,5 +43,5 @@
         <input type="submit" class="tombol tombol-success" name="edit" value="EDIT">
       </div>
     </form>
-
+  </div>
 </div>

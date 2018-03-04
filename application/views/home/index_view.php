@@ -1,3 +1,7 @@
+<?php
+$q = "SELECT COUNT(*) AS jumlah FROM keranjang WHERE id_session = '". $this->session->userdata('id_session') ."'";
+$jumlah_keranjang = $this->db->query($q)->row()->jumlah;
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,74 +16,64 @@
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/dist/css/skins/skin-blue-light.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+  <!-- jQuery 3 -->
+  <script src="<?= base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script type="text/javascript" src="<?= base_url();?>assets/js/bootstrap.min.js"></script>
+
   <!-- DataTable -->
   <link rel="stylesheet" href="<?= base_url(); ?>/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"/>
 </head>
-<body class="hold-transition skin-blue-light sidebar-mini">
+<body class="hold-transition skin-blue-light layout-top-nav">
 <div class="wrapper">
 
   <header class="main-header">
-    <a href="<?= base_url(); ?>" class="logo">
-      <span class="logo-mini"><b>A</b>B</span>
-      <span class="logo-lg"><b>Apotek&nbsp;</b>Berkah</span>
-    </a>
     <nav class="navbar navbar-static-top">
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
+      <div class="container">
+        <div class="navbar-header">
+          <a href="<?= site_url(); ?>" class="navbar-brand"><b>Apotek </b>Berkah</a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#panel-navigasi">
+            <i class="fa fa-bars"></i>
+          </button>
+        </div>
 
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-        </ul>
+        <div id="panel-navigasi" class="collapse navbar-collapse pull-left">
+          <ul class="nav navbar-nav">
+            <li<?= uri_string() == 'obat' ? ' class="active"' : ''; ?>><a href="<?= site_url('obat'); ?>">Obat</a></li>
+            <li<?= uri_string() == 'konfirmasi' ? ' class="active"' : '' ?>><a href="<?= site_url('konfirmasi'); ?>">Konfirmasi Pembayaran</a></li>
+            <li<?= uri_string() == 'cek' ? ' class="active"' : '' ?>><a href="<?= site_url('cek'); ?>">Cek Pembelian</a></li>
+          </ul>
+        </div>
+        
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="<?= site_url('beli'); ?>">
+                <i class="fa fa-shopping-cart"></i>
+                <span class="label label-warning"><?= $jumlah_keranjang; ?></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-custom-menu -->
       </div>
+      <!-- /.container-fluid -->
     </nav>
   </header>
-  <aside class="main-sidebar">
-    <section class="sidebar">
-      <ul class="sidebar-menu" data-widget="tree">
-        <li>
-          <a href="<?= site_url('konfirmasi');?>">
-            <i class="fa fa-check-square-o"></i><span>KONFIRMASI PEMBELIAN</span>
-          </a>
-        </li>
-        <li>
-          <a href="<?= site_url('cek');?>">
-            <i class="fa fa-list-alt"></i><span>CEK PEMBELIAN</span>
-          </a>
-        </li>
-        <li>
-          <a href="<?= site_url('obat');?>">
-            <i class="fa fa-plus-square"></i> <span>DAFTAR OBAT</span>
-          </a>
-        </li>
-        <li>
-          <a href="<?= site_url('beli');?>">
-            <i class="fa fa-cart-plus"></i> <span>BELI</span>
-          </a>
-        </li>
-      </ul>
-    </section>
-  </aside>
+  
   <div class="content-wrapper">
-    <section class="content-header">
-    </section>
-    <section class="content">
-      <div class="box-body">
+    <div class="container">
+      <section class="content-header">
+        <?= isset($view_title) ? '<h1>' . $view_title . '</h1>' : ''; ?>
+      </section>
+      <section class="content">
         <?php $this->load->view('home/'. $view_name); ?>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
-  <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="<?= base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script type="text/javascript" src="<?= base_url();?>assets/js/bootstrap.min.js"></script>
 <!-- DataTable -->
 <script src="<?= base_url(); ?>/assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?= base_url(); ?>/assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -97,7 +91,9 @@
   <?php if(uri_string() == 'obat'){ ?>
 
     $(function() {
-      $("#tabeldata").DataTable();
+      $("#tabeldata").DataTable({
+        "pagingType": "first_last_numbers"
+      });
     })
 
   <?php } ?>

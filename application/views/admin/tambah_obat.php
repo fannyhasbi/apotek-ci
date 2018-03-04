@@ -1,16 +1,12 @@
 
-<div class="jumbotron text-center">
-  <h2>TAMBAH OBAT</h2>
-</div>
-
-<div class="container" style="margin-bottom: 50px">
-  <div class="col-md-offset-3 col-md-6">
+<div class="box box-primary">
+  <div class="box-body">
     <form action="" method="post">
       <?= $message; ?>
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="kode_obat">Kode Obat</label>
+            <label for="kode_obat">Kode</label>
             <input type="text" class="form-control" name="kode_obat" required autofocus>
           </div>
         </div>
@@ -41,11 +37,11 @@
       </div>
       <div class="form-group">
         <label for="manfaat">Manfaat</label>
-        <textarea name="manfaat" class="form-control" required></textarea>
+        <textarea name="manfaat" class="form-control" required rows="5"></textarea>
       </div>
       <div class="form-group">
         <input type="submit" class="tombol tombol-success" name="tambah" value="TAMBAH">
       </div>
     </form>
-
+  </div>
 </div>

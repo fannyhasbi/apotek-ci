@@ -65,6 +65,7 @@ class Admin extends CI_Controller {
     if($kode == NULL){
       $data['transaksi'] = $this->admin_model->getPemesanan();
 
+      $data['view_title'] = 'Transaksi Pembelian';
       $data['view_name'] = 'transaksi';
       $this->load->view('admin/index_view', $data);
     }
@@ -73,6 +74,7 @@ class Admin extends CI_Controller {
       $data['detail_pemesanan'] = $this->admin_model->getDetailPemesanan($kode);
       $data['pembeli'] = $this->admin_model->getDetailPembeliByPemesanan($kode);
 
+      $data['view_title'] = 'Detail Transaksi '. $data['pemesanan']->kode_pesan;
       $data['view_name'] = 'transaksi_detail';
       $this->load->view('admin/index_view', $data);
     }

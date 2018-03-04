@@ -3,7 +3,7 @@
   <div class="box-body">
     <div class="container-fluid">
       <?= $message; ?>
-      <table id="tabeldata" class="table table-bordered table-striped table-hover">
+      <table id="tabeldata" class="table table-striped table-hover">
         <thead>
           <tr>
             <th>#Kode</th>

@@ -37,7 +37,7 @@ class Admin extends CI_Controller {
         $data_session = array(
           'login_admin' => true,
           'username'    => $admin->username,
-          'nama'        => $admin->nama
+          'nama_admin'  => $admin->nama
         );
 
         $this->session->set_userdata($data_session);

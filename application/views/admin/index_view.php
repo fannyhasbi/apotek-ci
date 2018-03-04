@@ -143,7 +143,7 @@
     $('.sidebar-menu').tree();
   });
 
-  <?php if(uri_string() == 'admin/obat'){ ?>
+  <?php if(uri_string() == 'admin/obat' || uri_string() == 'admin/transaksi'){ ?>
     const x = (window.innerWidth > 768) ? false : true;
     $(function() {
       $("#tabeldata").DataTable({

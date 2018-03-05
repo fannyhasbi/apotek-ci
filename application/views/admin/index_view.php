@@ -65,6 +65,11 @@
   <aside class="main-sidebar">
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
+        <li>
+          <a href="<?= site_url('admin');?>">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa fa-medkit"></i> <span>Daftar Obat</span>

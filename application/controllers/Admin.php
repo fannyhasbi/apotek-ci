@@ -18,6 +18,9 @@ class Admin extends CI_Controller {
   public function index(){
     $this->cekLogin();
 
+    $data['dashboard'] = $this->admin_model->getDataDashboard();
+
+    $data['view_title']= 'Dashboard Admin';
     $data['view_name'] = 'dashboard';
     $this->load->view('admin/index_view', $data);
   }

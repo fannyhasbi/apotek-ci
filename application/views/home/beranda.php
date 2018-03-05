@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Panjaang Ga?</title>
+  <title>Apotek Berkah</title>
   <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/bootstrap.min.css');?>">
 
   <style>

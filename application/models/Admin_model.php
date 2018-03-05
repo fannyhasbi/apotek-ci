@@ -77,6 +77,7 @@ class Admin_model extends CI_Model {
         ON d.kode_pesan = p.kode_pesan
       WHERE MONTH(p.tanggal) = MONTH(CURRENT_DATE())
         AND YEAR(p.tanggal) = YEAR(CURRENT_DATE())
+        AND p.status = 'L'
       GROUP BY p.tanggal
     ";
 

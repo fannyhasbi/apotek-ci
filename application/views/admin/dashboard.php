@@ -59,28 +59,22 @@
 </div>
 
 <script>
-var line = new Morris.Line({
+var line = new Morris.Bar({
   element          : 'line-chart',
   resize           : true,
   data             : [
     <?php
     foreach($grafik as $item){
-      echo '{ tanggal: \''. $item->tanggal .'\', item1: '. $item->jumlah_obat_terjual .'},';
+      echo '{ tanggal: \''. $item->tanggal .'\', item1: '. $item->jumlah_transaksi .', item2: '. $item->jumlah_obat_terjual .'},';
     }
     ?>
   ],
   xkey             : 'tanggal',
-  ykeys            : ['item1'],
-  labels           : ['Obat Terjual'],
-  lineColors       : ['#efefef'],
-  lineWidth        : 2,
+  ykeys            : ['item1', 'item2'],
+  labels           : ['Obat Terjual', 'Tambahan'],
+  barColors        : ['#f39c12', '#00a65a'],
   hideHover        : 'auto',
   gridTextColor    : '#fff',
-  gridStrokeWidth  : 0.4,
-  pointSize        : 4,
-  pointStrokeColors: ['#efefef'],
-  gridLineColor    : '#efefef',
-  gridTextFamily   : 'Open Sans',
-  gridTextSize     : 10
+  gridStrokeWidth  : 0.4
 });
 </script>

@@ -69,7 +69,9 @@ class Admin_model extends CI_Model {
 
   public function getGrafik(){
     $q = "
-      SELECT p.tanggal, SUM(d.jumlah) AS jumlah_obat_terjual
+      SELECT p.tanggal,
+        SUM(d.jumlah) AS jumlah_obat_terjual,
+        COUNT(*) AS jumlah_transaksi
       FROM detail_pemesanan d
       INNER JOIN pemesanan p
         ON d.kode_pesan = p.kode_pesan

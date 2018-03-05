@@ -67,6 +67,21 @@ class Admin_model extends CI_Model {
     return $query->row();
   }
 
+  public function getGrafik(){
+    $q = "
+      SELECT p.tanggal, SUM(d.jumlah) AS jumlah_obat_terjual
+      FROM detail_pemesanan d
+      INNER JOIN pemesanan p
+        ON d.kode_pesan = p.kode_pesan
+      WHERE MONTH(p.tanggal) = MONTH(CURRENT_DATE())
+        AND YEAR(p.tanggal) = YEAR(CURRENT_DATE())
+      GROUP BY p.tanggal
+    ";
+
+    $query = $this->db->query($q);
+    return $query->result();
+  }
+
   public function insertObat(){
     $kode = $this->input->post('kode_obat');
     $nama = $this->input->post('nama');

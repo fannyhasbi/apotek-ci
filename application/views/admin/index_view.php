@@ -10,15 +10,21 @@
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/bower_components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/dist/css/AdminLTE.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/dist/css/skins/skin-green-light.min.css">
+  <!-- Morris chart -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/morris.js/morris.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
   <!-- jQuery 3 -->
   <script src="<?= base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
   <script type="text/javascript" src="<?= base_url();?>assets/js/bootstrap.min.js"></script>
-
+  <!-- Morris.js charts -->
+  <script src="<?= base_url(); ?>assets/bower_components/raphael/raphael.min.js"></script>
+  <script src="<?= base_url(); ?>assets/bower_components/morris.js/morris.min.js"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="<?= base_url(); ?>assets/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
   <!-- DataTable -->
-  <link rel="stylesheet" href="<?= base_url(); ?>/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"/>
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"/>
 </head>
 <body class="hold-transition skin-green-light sidebar-mini">
 <div class="wrapper">
@@ -102,8 +108,8 @@
 <!-- ./wrapper -->
 
 <!-- DataTable -->
-<script src="<?= base_url(); ?>/assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url(); ?>/assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="<?= base_url(); ?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url(); ?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="<?= base_url();?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->

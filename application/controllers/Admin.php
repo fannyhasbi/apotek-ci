@@ -19,6 +19,7 @@ class Admin extends CI_Controller {
     $this->cekLogin();
 
     $data['dashboard'] = $this->admin_model->getDataDashboard();
+    $data['grafik'] = $this->admin_model->getGrafik();
 
     $data['view_title']= 'Dashboard Admin';
     $data['view_name'] = 'dashboard';

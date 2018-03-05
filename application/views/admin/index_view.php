@@ -65,24 +65,24 @@
   <aside class="main-sidebar">
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
-        <li>
+        <li<?= uri_string() == 'admin' ? ' class="active"' : '' ?>>
           <a href="<?= site_url('admin');?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li class="treeview">
+        <li <?= uri_string() == 'admin/obat' || uri_string() == 'admin/obat/tambah' ? 'class="treeview active menu-open"' : 'class="treeview"' ?>>
           <a href="#">
-            <i class="fa fa fa-medkit"></i> <span>Daftar Obat</span>
+            <i class="fa fa fa-medkit"></i> <span>Obat</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?= site_url('admin/obat'); ?>"><i class="fa fa-circle-o"></i> Daftar Obat</a></li>
-            <li><a href="<?= site_url('admin/obat/tambah'); ?>"><i class="fa fa-circle-o"></i> Tambah Obat</a></li>
+            <li<?= uri_string() == 'admin/obat' ? ' class="active"' : '' ?>><a href="<?= site_url('admin/obat'); ?>"><i class="fa fa-circle-o text-info"></i> Daftar Obat</a></li>
+            <li<?= uri_string() == 'admin/obat/tambah' ? ' class="active"' : '' ?>><a href="<?= site_url('admin/obat/tambah'); ?>"><i class="fa fa-circle-o text-success"></i> Tambah Obat</a></li>
           </ul>
         </li>
-        <li>
+        <li<?= uri_string() == 'admin/transaksi' ? ' class="active"' : '' ?>>
           <a href="<?= site_url('admin/transaksi');?>">
             <i class="fa fa-money"></i> <span>Transaksi</span>
           </a>

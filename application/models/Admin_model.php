@@ -3,14 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin_model extends CI_Model {
   
-  public function checkAdmin($username, $pass){
-    $query = "SELECT * FROM admin WHERE username = '". $username ."' AND password = '". $pass ."'";
-    return $this->db->query($query);
+  public function checkAdmin($username){
+    return $this->db->get_where('admin', ['username' => $username]);
   }
 
   public function getAdmin($username){
-    $q = "SELECT * FROM admin WHERE username = '". $username ."'";
-    $query = $this->db->query($q);
+    $query = $this->db->get_where('admin', ['username' => $username]);
 
     return $query->row();
   }

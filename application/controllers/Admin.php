@@ -35,22 +35,29 @@ class Admin extends CI_Controller {
       $password = $this->input->post('password');
 
       //jika admin terdaftar
-      if($this->admin_model->checkAdmin($username, $password)->num_rows() > 0){
+      if($this->admin_model->checkAdmin($username)->num_rows() > 0){
         $admin = $this->admin_model->getAdmin($username);
 
-        $data_session = array(
-          'login_admin' => true,
-          'username'    => $admin->username,
-          'nama_admin'  => $admin->nama
-        );
+        if(password_verify($password, $admin->password)){
+          $data_session = array(
+            'login_admin' => true,
+            'username'    => $admin->username,
+            'nama_admin'  => $admin->nama
+          );
 
-        $this->session->set_userdata($data_session);
-        redirect(site_url('admin'));
+          $this->session->set_userdata($data_session);
+        }
+        else {
+          $message = '<div class="alert alert-danger">Username atau password salah</div>';
+          $this->session->set_flashdata('msg', $message);
+        }
       }
       else {
         $message = '<div class="alert alert-danger">Username atau password salah</div>';
         $this->session->set_flashdata('msg', $message);
       }
+
+      redirect(site_url('admin/login'));
     }
     else {
       $data['message'] = $this->session->flashdata('msg');

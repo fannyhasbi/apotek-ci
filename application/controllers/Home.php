@@ -24,9 +24,8 @@ class Home extends CI_Controller {
   }
 
   public function index(){
-    $this->cekSession();
-    $data['view_name'] = 'beranda';
-    $this->load->view('home/index_view', $data);
+    $this->cekSession();    
+    $this->load->view('home/beranda');
   }
 
   public function obat($kode_obat = NULL){

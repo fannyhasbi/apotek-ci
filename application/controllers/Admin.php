@@ -18,6 +18,10 @@ class Admin extends CI_Controller {
   public function index(){
     $this->cekLogin();
 
+    $data['dashboard'] = $this->admin_model->getDataDashboard();
+    $data['grafik'] = $this->admin_model->getGrafik();
+
+    $data['view_title']= 'Dashboard Admin';
     $data['view_name'] = 'dashboard';
     $this->load->view('admin/index_view', $data);
   }
@@ -37,7 +41,7 @@ class Admin extends CI_Controller {
         $data_session = array(
           'login_admin' => true,
           'username'    => $admin->username,
-          'nama'        => $admin->nama
+          'nama_admin'  => $admin->nama
         );
 
         $this->session->set_userdata($data_session);

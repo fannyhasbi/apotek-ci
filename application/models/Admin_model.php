@@ -54,6 +54,37 @@ class Admin_model extends CI_Model {
     return $query->row();
   }
 
+  public function getDataDashboard(){
+    $q = "
+      SELECT
+      (SELECT COUNT(DISTINCT(kode_obat)) FROM obat) AS jumlah_obat,
+      (SELECT COUNT(DISTINCT(id)) FROM pembeli) AS jumlah_pembeli,
+      (SELECT COUNT(*) FROM pemesanan) AS jumlah_transaksi,
+      (SELECT SUM(jumlah) FROM detail_pemesanan) AS jumlah_obat_terjual
+    ";
+
+    $query = $this->db->query($q);
+    return $query->row();
+  }
+
+  public function getGrafik(){
+    $q = "
+      SELECT p.tanggal,
+        SUM(d.jumlah) AS jumlah_obat_terjual,
+        COUNT(*) AS jumlah_transaksi
+      FROM detail_pemesanan d
+      INNER JOIN pemesanan p
+        ON d.kode_pesan = p.kode_pesan
+      WHERE MONTH(p.tanggal) = MONTH(CURRENT_DATE())
+        AND YEAR(p.tanggal) = YEAR(CURRENT_DATE())
+        AND p.status = 'L'
+      GROUP BY p.tanggal
+    ";
+
+    $query = $this->db->query($q);
+    return $query->result();
+  }
+
   public function insertObat(){
     $kode = $this->input->post('kode_obat');
     $nama = $this->input->post('nama');

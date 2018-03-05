@@ -47,12 +47,38 @@ $jumlah_keranjang = $this->db->query($q)->row()->jumlah;
         
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
-            <li>
-              <a href="<?= site_url('beli'); ?>">
-                <i class="fa fa-shopping-cart"></i>
-                <span class="label label-warning"><?= $jumlah_keranjang; ?></span>
-              </a>
-            </li>
+            <?php if($jumlah_keranjang > 0){ ?>
+
+              <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-shopping-cart"></i>
+                  <span class="label label-warning"><?= $jumlah_keranjang; ?></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">Barang di keranjang : <?= $jumlah_keranjang; ?></li>
+                  <li>
+                    <ul class="menu">
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-users text-aqua"></i> Acarbose
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="<?= site_url('beli'); ?>">Lihat semua</a></li>
+                </ul>
+              </li>
+
+            <?php } else { ?>
+            
+              <li>
+                <a href="<?= site_url('beli'); ?>" title="Keranjang belanjaan">
+                  <i class="fa fa-shopping-cart"></i>
+                </a>
+              </li>
+            
+            <?php } ?>
+
           </ul>
         </div>
         <!-- /.navbar-custom-menu -->

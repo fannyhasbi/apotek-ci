@@ -10,15 +10,21 @@
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/bower_components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/dist/css/AdminLTE.min.css">
   <link rel="stylesheet" type="text/css" href="<?= base_url();?>assets/dist/css/skins/skin-green-light.min.css">
+  <!-- Morris chart -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/morris.js/morris.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
   <!-- jQuery 3 -->
   <script src="<?= base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
   <script type="text/javascript" src="<?= base_url();?>assets/js/bootstrap.min.js"></script>
-
+  <!-- Morris.js charts -->
+  <script src="<?= base_url(); ?>assets/bower_components/raphael/raphael.min.js"></script>
+  <script src="<?= base_url(); ?>assets/bower_components/morris.js/morris.min.js"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="<?= base_url(); ?>assets/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
   <!-- DataTable -->
-  <link rel="stylesheet" href="<?= base_url(); ?>/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"/>
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"/>
 </head>
 <body class="hold-transition skin-green-light sidebar-mini">
 <div class="wrapper">
@@ -40,41 +46,20 @@
         <ul class="nav navbar-nav">
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?= base_url('assets'); ?>/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <img src="<?= base_url('assets'); ?>/img/person-flat.png" class="user-image" alt="User Image">
+              <span class="hidden-xs"><?= $this->session->userdata('nama_admin'); ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?= base_url('assets'); ?>/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?= base_url('assets'); ?>/img/person-flat.png" class="img-circle" alt="User Image Apotek Berkah">
 
-                <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
+                <p><?= $this->session->userdata('nama_admin'); ?></p>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?= site_url('admin/logout'); ?>" class="btn btn-default btn-flat">Logout</a>
                 </div>
               </li>
             </ul>
@@ -86,34 +71,27 @@
   <aside class="main-sidebar">
     <section class="sidebar">
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="treeview">
+        <li<?= uri_string() == 'admin' ? ' class="active"' : '' ?>>
+          <a href="<?= site_url('admin');?>">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        <li <?= uri_string() == 'admin/obat' || uri_string() == 'admin/obat/tambah' ? 'class="treeview active menu-open"' : 'class="treeview"' ?>>
           <a href="#">
-            <i class="fa fa fa-medkit"></i> <span>Daftar Obat</span>
+            <i class="fa fa fa-medkit"></i> <span>Obat</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?= site_url('admin/obat'); ?>"><i class="fa fa-circle-o"></i> Daftar Obat</a></li>
-            <li><a href="<?= site_url('admin/obat/tambah'); ?>"><i class="fa fa-circle-o"></i> Tambah Obat</a></li>
+            <li<?= uri_string() == 'admin/obat' ? ' class="active"' : '' ?>><a href="<?= site_url('admin/obat'); ?>"><i class="fa fa-circle-o text-info"></i> Daftar Obat</a></li>
+            <li<?= uri_string() == 'admin/obat/tambah' ? ' class="active"' : '' ?>><a href="<?= site_url('admin/obat/tambah'); ?>"><i class="fa fa-circle-o text-success"></i> Tambah Obat</a></li>
           </ul>
         </li>
-        <li>
+        <li<?= uri_string() == 'admin/transaksi' ? ' class="active"' : '' ?>>
           <a href="<?= site_url('admin/transaksi');?>">
             <i class="fa fa-money"></i> <span>Transaksi</span>
           </a>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-sign-out"></i> <span>Keluar</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?= site_url('admin/logout');?>"><i class="fa fa-check-circle"></i>Ya</a></li>
-            <li><a href="#"><i class="fa fa-times-circle"></i>TIdak</a></li>
-          </ul>
         </li>
       </ul>
     </section>
@@ -130,8 +108,8 @@
 <!-- ./wrapper -->
 
 <!-- DataTable -->
-<script src="<?= base_url(); ?>/assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url(); ?>/assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="<?= base_url(); ?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url(); ?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="<?= base_url();?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->

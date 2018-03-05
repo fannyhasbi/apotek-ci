@@ -71,7 +71,7 @@ var line = new Morris.Bar({
   ],
   xkey             : 'tanggal',
   ykeys            : ['item1', 'item2'],
-  labels           : ['Obat Terjual', 'Tambahan'],
+  labels           : ['Transaksi', 'Obat Terjual'],
   barColors        : ['#f39c12', '#00a65a'],
   hideHover        : 'auto',
   gridTextColor    : '#fff',

@@ -52,15 +52,15 @@
         <form action="" method="post" id="myForm">
           <div class="form-group">
             <label for="nama" class="control-label">Nama Lengkap</label>
-            <input type="text" class="form-control" name="nama">
+            <input type="text" class="form-control" name="nama" required>
           </div>
           <div class="form-group">
             <label for="identitas" class="control-label">No. Identitas</label>
-            <input type="text" class="form-control" name="identitas">
+            <input type="text" class="form-control" name="identitas" required>
           </div>
           <div class="form-group">
             <label for="alamat" class="control-label">Alamat Lengkap Pengiriman</label>
-            <input type="text" class="form-control" name="alamat">
+            <input type="text" class="form-control" name="alamat" required>
           </div>
           <div class="form-group">
             <label for="keterangan" class="control-label">Keterangan Tambahan</label>
@@ -79,9 +79,6 @@
 
 <script>
   $(document).ready(function(){
-    $("#proses_beli").click(function(){
-      $(".form-control").prop("required", true);
-    });
     $("#batal_beli").click(function(){
       $(".form-control").removeAttr("required");
     });

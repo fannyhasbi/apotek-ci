@@ -51,12 +51,20 @@
         <h4 class="lead">Lanjutkan Pembelian</h4>
         <form action="" method="post" id="myForm">
           <div class="form-group">
-            <label for="nama">Nama Lengkap</label>
+            <label for="nama" class="control-label">Nama Lengkap</label>
             <input type="text" class="form-control" name="nama">
           </div>
           <div class="form-group">
-            <label for="identitas">No. Identitas</label>
+            <label for="identitas" class="control-label">No. Identitas</label>
             <input type="text" class="form-control" name="identitas">
+          </div>
+          <div class="form-group">
+            <label for="alamat" class="control-label">Alamat Lengkap Pengiriman</label>
+            <input type="text" class="form-control" name="alamat">
+          </div>
+          <div class="form-group">
+            <label for="keterangan" class="control-label">Keterangan Tambahan</label>
+            <textarea class="form-control" name="keterangan" rows="5" placeholder="Ex: Amfetamin cair, kirim hari minggu, dll."></textarea>
           </div>
           <input type="submit" class="tombol tombol-success" name="proses_beli" id="proses_beli" value="PESAN">
           <!-- <input type="submit" class="tombol tombol-warning" name="batal_beli" value="BATALKAN PEMESANAN"> -->

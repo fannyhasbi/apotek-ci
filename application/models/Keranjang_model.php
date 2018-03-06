@@ -123,6 +123,9 @@ class Keranjang_model extends CI_Model {
       $kode_pesan .= $kar[rand(0, strlen($kar) -1)];
     }
 
+    $ket = $this->input->post('keterangan');
+    $almt= $this->input->post('alamat');
+
     //kolom -> kode_pesan, id_pemesan, harga, tanggal, status, konfirmasi
     // INSERT INTO pemesanan
     // SELECT 'AHGQE12', '21120116140068',
@@ -140,7 +143,7 @@ class Keranjang_model extends CI_Model {
             INNER JOIN obat o
               ON k.kode_obat = o.kode_obat
             WHERE id_session = '". $this->session->userdata('id_session') ."'),
-          '". date('Y-m-d') ."', 'B', NULL";
+          '". date('Y-m-d') ."', 'B', NULL, '". $almt ."', '". $ket ."'";
 
     $this->db->query($q);
 

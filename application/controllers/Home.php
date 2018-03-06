@@ -203,7 +203,7 @@ class Home extends CI_Controller {
 
       $new_kode_pesan = "";
       foreach (str_split($kode_pesan) as $val) {
-        $new_kode_pesan .= $val ." ";
+        $new_kode_pesan .= $val;
       }
 
       $pesanFlash  = '<h1>Terima Kasih '. $pembeli->nama .'</h1>';

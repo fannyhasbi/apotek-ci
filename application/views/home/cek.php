@@ -68,6 +68,10 @@
           <?php endif; ?>
         </tr>
       </table>
+
+      <?php if($status == 'L'){ ?>
+        <a href="<?= site_url('print_struk/'.$kode_pesan); ?>" class="btn btn-info">CETAK STRUK</a>
+      <?php } ?>
     </div>
   </div>
 </div>

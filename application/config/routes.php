@@ -7,6 +7,7 @@ $route['cek'] = 'home/cek';
 $route['konfirmasi'] = 'home/konfirmasi';
 $route['beli'] = 'home/beli';
 $route['beli/(:any)'] = 'home/tambah_keranjang/$1';
+$route['print_struk/(:any)'] = 'home/print_struk/$1';
 
 //AJAX
 $route['update_jumlah'] = 'home/update_jumlah';

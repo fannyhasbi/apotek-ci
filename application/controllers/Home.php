@@ -306,4 +306,71 @@ class Home extends CI_Controller {
     echo json_encode($data);
   }
 
+  public function print_struk($kode_pesan_route = NULL){
+    $this->cekSession();
+    if($kode_pesan_route != NULL){
+      $kode = $kode_pesan_route;
+      $cek_kode = $this->home_model->checkKodeByKode($kode);
+
+      if($cek_kode->num_rows() > 0){
+        $detail = $this->home_model->getInfoPemesanan($kode);
+
+        $tgl = explode("-", $detail->tanggal);
+        $new_tgl = "";
+        switch($tgl[1]){
+          case '01': $new_tgl = "Januari"; break;
+          case '02': $new_tgl = "Februari"; break;
+          case '03': $new_tgl = "Maret"; break;
+          case '04': $new_tgl = "April";
+          case '05': $new_tgl = "Mei"; break;
+          case '06': $new_tgl = "Juni"; break;
+          case '07': $new_tgl = "Juli"; break;
+          case '08': $new_tgl = "Agustus"; break;
+          case '09': $new_tgl = "September"; break;
+          case '10': $new_tgl = "Oktober"; break;
+          case '11': $new_tgl = "November"; break;
+          case '12': $new_tgl = "Desember"; break;
+        }
+
+        $date = str_split($tgl[2]);
+        $tgl[2] = $date[0] == '0' ? $date[1] : $date[0].$date[1];
+
+        $tgl = $tgl[2] ." ". $new_tgl ." ". $tgl[0];
+
+        //menampilkan detail
+        $data['kode_pesan'] = $kode;
+        $data['nama'] = $detail->nama;
+        $data['harga'] = 'Rp '. number_format($detail->harga, 0, ',', '.');
+        $data['tanggal'] = $tgl;
+        $data['status'] = $detail->status;
+        $data['detail'] = TRUE;
+
+        $items = $this->home_model->getDetailPemesanan($kode);
+        $data['items'] = $items;
+
+        $this->load->view('home/print_struk', $data);
+      }
+      else {
+        $message = '<div class="text-danger lead" style="padding-top: 10px">Tidak ditemukan kode pemesanan: <strong>'. $kode .'</strong></div>';
+        $this->session->set_flashdata('msg', $message);
+        redirect(site_url('cek'));
+      }
+    }
+    else {
+      $data = array(
+        'view_name' => 'cek',
+        'message'   => $this->session->flashdata('msg'),
+        'detail'    => $this->session->flashdata('detail'),
+        'kode_pesan'=> $this->session->flashdata('kode_pesan'),
+        'nama'      => $this->session->flashdata('nama'),
+        'harga'     => $this->session->flashdata('harga'),
+        'tanggal'   => $this->session->flashdata('tanggal'),
+        'status'    => $this->session->flashdata('status'),
+        'items'     => $this->session->flashdata('items')
+      );
+
+      $this->load->view('home/print_struk', $data);
+    }
+  }
+
 }

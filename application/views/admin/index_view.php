@@ -135,16 +135,13 @@ $jumlah_konfirmasi = $this->db->query($q)->row()->jumlah_konfirmasi;
     $('.sidebar-menu').tree();
   });
 
-  <?php if(uri_string() == 'admin/obat' || uri_string() == 'admin/transaksi'){ ?>
-    const x = (window.innerWidth > 768) ? false : true;
-    $(function() {
-      $("#tabeldata").DataTable({
-        "scrollX": x,
-        "pagingType": "first_last_numbers"
-      });
+  const x = (window.innerWidth > 768) ? false : true;
+  $(function() {
+    $("#tabeldata").DataTable({
+      "scrollX": x,
+      "pagingType": "first_last_numbers"
     });
-
-  <?php } ?>
+  });
 </script>
 </body>
 </html>

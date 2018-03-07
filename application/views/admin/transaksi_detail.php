@@ -39,15 +39,8 @@
             <td><?= 'Rp '. number_format($pemesanan->harga, 0, ',', '.'); ?></td>
           </tr>
           <tr>
-            <th>Bukti:</th>
-            <?php
-            if($pemesanan->bukti == null){
-              echo '<td>Belum mengirim bukti</td>';
-            }
-            else {
-              echo '<td><a href="'. base_url('foto/bukti/'.$pemesanan->bukti) .'" target="_blank">Lihat bukti</a></td>';
-            }
-            ?>
+            <th>Konfirmasi:</th>
+            <td><?= $pemesanan->konfirmasi; ?></td>
           </tr>
           <?php
           if($pemesanan->status == 'B'){

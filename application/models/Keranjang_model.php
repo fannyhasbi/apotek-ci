@@ -143,7 +143,7 @@ class Keranjang_model extends CI_Model {
             INNER JOIN obat o
               ON k.kode_obat = o.kode_obat
             WHERE id_session = '". $this->session->userdata('id_session') ."'),
-          '". date('Y-m-d') ."', 'B', NULL, '". $almt ."', '". $ket ."'";
+          '". date('Y-m-d') ."', 'B', NULL, '". $almt ."', '". $ket ."', NULL";
 
     $this->db->query($q);
 

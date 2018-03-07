@@ -1,4 +1,10 @@
 
+<?php if($message){ ?>
+  <div class="callout callout-info">
+    <p><?= $message; ?></p>
+  </div>
+<?php } ?>
+
 <div class="box box-info">
   <div class="box-body">
     <table id="tabeldata" class="table table-striped table-hover">

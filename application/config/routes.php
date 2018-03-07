@@ -23,6 +23,7 @@ $route['admin/obat/edit/(:any)'] = 'admin/edit_obat/$1';
 $route['admin/obat/tambah'] = 'admin/tambah_obat';
 $route['admin/obat/hapus/(:any)'] = 'admin/hapus_obat/$1';
 $route['admin/konfirmasi'] = 'admin/konfirmasi';
+$route['admin/konfirmasi/(:any)/confirm'] = 'admin/do_konfirmasi/$1';
 $route['admin/konfirmasi/(:any)'] = 'admin/konfirmasi/$1';
 
 $route['default_controller'] = 'home';

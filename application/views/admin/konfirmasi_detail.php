@@ -41,7 +41,7 @@
             <td><?= $pemesanan->status == 'B' ? 'Belum dibayar' : 'Lunas dibayar' ?></td>
           </tr>
         </table>
-        <a href="<?= site_url('admin/konfirmasi/'.$this->uri->segment(3)); ?>" class="btn btn-success btn-block pull-right">KONFIRMASI</a>
+        <a href="<?= site_url('admin/konfirmasi/'.$this->uri->segment(3).'/confirm'); ?>" class="btn btn-success btn-block pull-right">KONFIRMASI</a>
       </div>
 
       <div class="col-md-6">

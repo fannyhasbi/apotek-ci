@@ -149,4 +149,13 @@ class Admin_model extends CI_Model {
     return $query->row();
   }
 
+  public function updateStatusPemesanan($kode){
+    $data = array(
+      'status' => 'L'
+    );
+
+    $this->db->where('kode_pesan', $kode);
+    $this->db->update('pemesanan', $data);
+  }
+
 }

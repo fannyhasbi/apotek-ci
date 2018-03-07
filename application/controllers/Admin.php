@@ -162,7 +162,6 @@ class Admin extends CI_Controller {
     if($kode == NULL){
       $data['pemesanan'] = $this->admin_model->getKonfirmasi();
 
-      //didapat dari penghapusan obat
       $data['message'] = $this->session->flashdata('msg');
 
       $data['view_title'] = 'Konfirmasi Pembelian';
@@ -177,6 +176,22 @@ class Admin extends CI_Controller {
       $data['view_title'] = 'Detail Transaksi '. $data['pemesanan']->kode_pesan;
       $data['view_name'] = 'konfirmasi_detail';
       $this->load->view('admin/index_view', $data);
+    }
+  }
+
+  public function do_konfirmasi($kode = NULL){
+    $this->cekLogin();
+
+    if($kode === NULL){
+      // Belum ada kodenya
+      redirect(site_url('admin/konfirmasi'));
+    }
+    else {
+      $this->admin_model->updateStatusPemesanan($kode);
+
+      $this->session->set_flashdata('msg', 'Berhasil dikonfirmasi');
+
+      redirect(site_url('admin/konfirmasi'));
     }
   }
 

@@ -19,8 +19,12 @@ class Home_model extends CI_Model {
   }
 
   public function checkKode($kode, $id){
-    $query = "SELECT * FROM pemesanan WHERE kode_pesan = '". $kode ."' AND id_pemesan = '". $id ."'";
-    return $this->db->query($query);
+    $data = array(
+      'kode_pesan' => $kode,
+      'id_pemesan' => $id
+    );
+
+    return $this->db->get_where('pemesanan', $data);
   }
 
   public function updateStatusPemesanan($kode){
@@ -62,8 +66,12 @@ class Home_model extends CI_Model {
   }
 
   public function getStatusPemesananByKode($kode, $id){
-    $q = "SELECT * FROM pemesanan WHERE kode_pesan = '". $kode ."' AND id_pemesan = '". $id ."'";
-    $query = $this->db->query($q);
+    $data = array(
+      'kode_pesan' => $kode,
+      'id_pemesan' => $id
+    );
+
+    $query = $this->db->get_where('pemesanan', $data);
     return $query->row();
   }
 
@@ -82,6 +90,15 @@ class Home_model extends CI_Model {
 
     $query = $this->db->query($q);
     return $query->result();
+  }
+
+  public function addBukti($kode_pesan, $alamat_bukti){
+    $data = array(
+      'bukti' => $alamat_bukti
+    );
+
+    $this->db->where('kode_pesan', $kode_pesan);
+    $this->db->update('pemesanan', $data);
   }
 
 }

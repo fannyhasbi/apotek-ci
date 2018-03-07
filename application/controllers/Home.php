@@ -23,6 +23,16 @@ class Home extends CI_Controller {
     return $h;
   }
 
+  private function generateBukti(){
+    $bukti = "";
+    $n = "1234567890";
+    for($i=0;$i<8;$i++){
+      $bukti .= $n[rand(0, strlen($n) - 1)];
+    }
+
+    return 'bukti_'.$bukti;
+  }
+
   public function index(){
     $this->cekSession();    
     $this->load->view('home/beranda');
@@ -123,22 +133,65 @@ class Home extends CI_Controller {
 
       if($cek_kode->num_rows() > 0){
         $pemesanan = $this->home_model->getStatusPemesananByKode($kode_pesan, $identitas);
-        $user_info = $this->home_model->getUserInfo($pemesanan->id_pemesan);
 
         if($pemesanan->status == 'L'){
-          $date = explode("-", $pemesanan->konfirmasi);
-          $date = $date[2] ."/". $date[1] ."/". $date[0];
-          $message = '<p class="alert alert-success text-center">Pemesanan <strong>'. $kode_pesan .'</strong> telah dikonfirmasi sebelumnya pada '. $date .' oleh '. $user_info->nama .'</p>';
+          // Sudah lunas dibayar
+          $message = '<p>Pesanan '. $kode_pesan .' sudah dikonfirmasi.</p>';
+          $this->session->set_flashdata('msg', $message);
+        }
+        elseif($pemesanan->status == 'T') {
+          // Menunggu konfirmasi admin
+          $message = '<p>Pesanan '. $kode_pesan .' sedang menunggu konfirmasi.</p>';
+          $this->session->set_flashdata('msg', $message);
         }
         else {
-          if($this->home_model->updateStatusPemesanan($kode_pesan))
-            $message = '<p class="alert alert-success text-center">Pemesanan <strong>'. $kode_pesan .'</strong> berhasil dikonfirmasi atas nama '. $user_info->nama .'</p>';
+          // Belum konfirmasi
+          $bukti = $this->generateBukti();
+
+          $config['upload_path']   = './foto/bukti/';
+          $config['file_name']     = $bukti;
+          $config['allowed_types'] = 'jpg|png';
+          $config['max_size']      = 300;
+
+          $this->load->library('upload', $config);
+
+          if ( ! $this->upload->do_upload('bukti'))
+          {
+            $message = '<p>'. $this->upload->display_errors() .'</p>';
+            $this->session->set_flashdata('msg', $message);
+          }
           else
-            $message = '<p class="alert alert-danger text-center"><b>Terjadi kesalahan</b>, konfirmasi pembelian gagal.</p>';
+          {
+            $data = $this->upload->data();
+            $this->home_model->addBukti($kode_pesan, $data['file_name']);
+
+            $message = '<p>Bukti berhasil diupload. Silahkan tunggu sampai admin mengkonfirmasi dan mengirimkan pesanan anda.</p>';
+            $this->session->set_flashdata('msg', $message);
+          }
         }
 
-        $this->session->set_flashdata('msg', $message);
+
         redirect(site_url('konfirmasi'));
+
+        // Untuk halaman admin
+        // Sementara edit bagian home dulu sebelum ke admin
+        // $pemesanan = $this->home_model->getStatusPemesananByKode($kode_pesan, $identitas);
+        // $user_info = $this->home_model->getUserInfo($pemesanan->id_pemesan);
+        //
+        // if($pemesanan->status == 'L'){
+        //   $date = explode("-", $pemesanan->konfirmasi);
+        //   $date = $date[2] ."/". $date[1] ."/". $date[0];
+        //   $message = '<p class="alert alert-success text-center">Pemesanan <strong>'. $kode_pesan .'</strong> telah dikonfirmasi sebelumnya pada '. $date .' oleh '. $user_info->nama .'</p>';
+        // }
+        // else {
+        //   if($this->home_model->updateStatusPemesanan($kode_pesan))
+        //     $message = '<p class="alert alert-success text-center">Pemesanan <strong>'. $kode_pesan .'</strong> berhasil dikonfirmasi atas nama '. $user_info->nama .'</p>';
+        //   else
+        //     $message = '<p class="alert alert-danger text-center"><b>Terjadi kesalahan</b>, konfirmasi pembelian gagal.</p>';
+        // }
+
+        // $this->session->set_flashdata('msg', $message);
+        // redirect(site_url('konfirmasi'));
       }
       else {
         $message = '<p class="alert alert-danger text-center">Tidak ditemukan kode pemesanan: <strong>'. $kode_pesan .'</strong></p>';
@@ -148,7 +201,6 @@ class Home extends CI_Controller {
       }
     }
     else {
-      $data['view_title'] = 'Konfirmasi Pembayaran';
       $data['view_name'] = 'konfirmasi';
       $data['message'] = $this->session->flashdata('msg');
 

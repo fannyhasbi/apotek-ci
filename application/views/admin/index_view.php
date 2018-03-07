@@ -88,6 +88,11 @@
             <li<?= uri_string() == 'admin/obat/tambah' ? ' class="active"' : '' ?>><a href="<?= site_url('admin/obat/tambah'); ?>"><i class="fa fa-circle-o text-success"></i> Tambah Obat</a></li>
           </ul>
         </li>
+        <li<?= uri_string() == 'admin/konfirmasi' ? ' class="active"' : '' ?>>
+          <a href="<?= site_url('admin/konfirmasi');?>">
+            <i class="fa fa-check-square-o"></i> <span>Konfirmasi</span>
+          </a>
+        </li>
         <li<?= uri_string() == 'admin/transaksi' ? ' class="active"' : '' ?>>
           <a href="<?= site_url('admin/transaksi');?>">
             <i class="fa fa-money"></i> <span>Transaksi</span>

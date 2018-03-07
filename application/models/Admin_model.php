@@ -126,4 +126,17 @@ class Admin_model extends CI_Model {
       return false;
   }
 
+  public function getKonfirmasi(){
+    $q = "
+      SELECT pemesanan.*, pembeli.nama
+      FROM pemesanan pemesanan
+      INNER JOIN pembeli
+        ON pemesanan.id_pemesan = pembeli.id
+      WHERE pemesanan.status = 'B'
+    ";
+
+    $query = $this->db->query($q);
+    return $query->result();
+  }
+
 }

@@ -156,4 +156,17 @@ class Admin extends CI_Controller {
     }
   }
 
+  public function konfirmasi(){
+    $this->cekLogin();
+
+    $data['pemesanan'] = $this->admin_model->getKonfirmasi();
+
+    //didapat dari penghapusan obat
+    $data['message'] = $this->session->flashdata('msg');
+
+    $data['view_title'] = 'Konfirmasi Pembelian';
+    $data['view_name'] = 'konfirmasi';
+    $this->load->view('admin/index_view', $data);
+  }
+
 }

@@ -22,6 +22,7 @@ $route['admin/obat'] = 'admin/daftar_obat';
 $route['admin/obat/edit/(:any)'] = 'admin/edit_obat/$1';
 $route['admin/obat/tambah'] = 'admin/tambah_obat';
 $route['admin/obat/hapus/(:any)'] = 'admin/hapus_obat/$1';
+$route['admin/konfirmasi'] = 'admin/konfirmasi';
 
 $route['default_controller'] = 'home';
 

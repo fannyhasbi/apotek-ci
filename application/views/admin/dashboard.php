@@ -72,7 +72,7 @@ var line = new Morris.Bar({
   xkey             : 'tanggal',
   ykeys            : ['item1', 'item2'],
   labels           : ['Transaksi', 'Obat Terjual'],
-  barColors        : ['#f39c12', '#00a65a'],
+  barColors        : ['#ff851b', '#dd4b39'],
   hideHover        : 'auto',
   gridTextColor    : '#fff',
   gridStrokeWidth  : 0.4

@@ -132,7 +132,7 @@ class Admin_model extends CI_Model {
       FROM pemesanan pemesanan
       INNER JOIN pembeli
         ON pemesanan.id_pemesan = pembeli.id
-      WHERE pemesanan.status = 'B'
+      WHERE pemesanan.status IN ('B', 'T')
     ";
 
     $query = $this->db->query($q);
@@ -140,12 +140,9 @@ class Admin_model extends CI_Model {
   }
 
   public function getKonfirmasiByKode($kode){
-    $data = array(
-      'kode_pesan' => $kode,
-      'status' => 'B'
-    );
+    $q = "SELECT * FROM pemesanan WHERE kode_pesan = '". $kode ."' AND status IN ('B', 'T')";
 
-    $query = $this->db->get_where('pemesanan', $data);
+    $query = $this->db->query($q);
     return $query->row();
   }
 

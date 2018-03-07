@@ -36,9 +36,34 @@
             <th>Total:</th>
             <td><?= 'Rp '. number_format($pemesanan->harga, 0, ',', '.'); ?></td>
           </tr>
-          <tr class="alert <?= $pemesanan->status == 'B' ? 'alert-danger' : 'alert-success' ?>">
+          <tr>
+            <th>Bukti:</th>
+            <?php
+            if($pemesanan->bukti == null){
+              echo '<td>Belum mengirim bukti</td>';
+            }
+            else {
+              echo '<td><a href="'. base_url('foto/bukti/'.$pemesanan->bukti) .'" target="_blank">Lihat bukti</a></td>';
+            }
+            ?>
+          </tr>
+          <?php
+          if($pemesanan->status == 'B'){
+            $temp_class = 'alert-danger';
+            $temp_msg   = 'Belum dibayar';
+          }
+          elseif($pemesanan->status = 'T'){
+            $temp_class = 'alert-warning';
+            $temp_msg   = 'Menunggu konfirmasi';
+          }
+          else {
+            $temp_class = 'alert-success';
+            $temp_msg   = 'Lunas Dibayar';
+          }
+          ?>
+          <tr class="alert <?= $temp_class; ?>">
             <th>Status:</th>
-            <td><?= $pemesanan->status == 'B' ? 'Belum dibayar' : 'Lunas dibayar' ?></td>
+            <td><?= $temp_msg; ?></td>
           </tr>
         </table>
         <a href="<?= site_url('admin/konfirmasi/'.$this->uri->segment(3).'/confirm'); ?>" class="btn btn-success btn-block pull-right">KONFIRMASI</a>

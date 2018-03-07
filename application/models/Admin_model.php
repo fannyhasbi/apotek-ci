@@ -2,6 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin_model extends CI_Model {
+  public function __construct(){
+    date_default_timezone_set('Asia/Jakarta');
+  }
   
   public function checkAdmin($username){
     return $this->db->get_where('admin', ['username' => $username]);
@@ -148,7 +151,8 @@ class Admin_model extends CI_Model {
 
   public function updateStatusPemesanan($kode){
     $data = array(
-      'status' => 'L'
+      'status' => 'L',
+      'konfirmasi' => date('Y-m-d')
     );
 
     $this->db->where('kode_pesan', $kode);

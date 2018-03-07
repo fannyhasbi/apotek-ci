@@ -22,6 +22,10 @@
 
     <div class="row">
       <div class="col-md-6">
+        <h4 class="lead">Keterangan Tambahan</h4>
+        <?= strlen($pemesanan->keterangan) > 0 ? '<p>'. $pemesanan->keterangan .'</p>' : '<p class="text-muted">Kosong</p>' ?>
+      </div>
+      <div class="col-md-6">
         <h4 class="lead">Ringkasan Pembelian <small>(<?= $pemesanan->kode_pesan; ?>)</small></h4>
         <table class="table">
           <tr>
@@ -52,7 +56,7 @@
             $temp_class = 'alert-danger';
             $temp_msg   = 'Belum dibayar';
           }
-          elseif($pemesanan->status = 'T'){
+          elseif($pemesanan->status == 'T'){
             $temp_class = 'alert-warning';
             $temp_msg   = 'Menunggu konfirmasi';
           }
@@ -67,11 +71,6 @@
           </tr>
         </table>
         <a href="<?= site_url('admin/konfirmasi/'.$this->uri->segment(3).'/confirm'); ?>" class="btn btn-success btn-block pull-right">KONFIRMASI</a>
-      </div>
-
-      <div class="col-md-6">
-        <h4 class="lead">Keterangan Tambahan</h4>
-        <p><?= strlen($pemesanan->keterangan) > 0 ? $pemesanan->keterangan : 'Kosong' ?></p>
       </div>
     </div>
 

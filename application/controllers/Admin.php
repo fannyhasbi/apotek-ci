@@ -189,7 +189,7 @@ class Admin extends CI_Controller {
     else {
       $this->admin_model->updateStatusPemesanan($kode);
 
-      $this->session->set_flashdata('msg', 'Berhasil dikonfirmasi');
+      $this->session->set_flashdata('msg', 'Pesanan '. $kode .' berhasil dikonfirmasi');
 
       redirect(site_url('admin/konfirmasi'));
     }

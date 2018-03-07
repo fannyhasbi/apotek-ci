@@ -164,6 +164,7 @@ class Home extends CI_Controller {
           {
             $data = $this->upload->data();
             $this->home_model->addBukti($kode_pesan, $data['file_name']);
+            $this->home_model->updateBukti($kode_pesan);
 
             $message = '<p>Bukti berhasil diupload. Silahkan tunggu sampai admin mengkonfirmasi dan mengirimkan pesanan anda.</p>';
             $this->session->set_flashdata('msg', $message);

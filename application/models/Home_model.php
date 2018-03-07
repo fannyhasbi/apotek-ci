@@ -101,4 +101,13 @@ class Home_model extends CI_Model {
     $this->db->update('pemesanan', $data);
   }
 
+  public function updateBukti($kode_pesan){
+    $data = array(
+      'status' => 'T'
+    );
+
+    $this->db->where('kode_pesan', $kode_pesan);
+    $this->db->update('pemesanan', $data);
+  }
+
 }

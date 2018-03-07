@@ -14,7 +14,7 @@ class Admin_model extends CI_Model {
   }
 
   public function getPemesanan(){
-    $q = "SELECT * FROM pemesanan ORDER BY tanggal DESC, status ASC";
+    $q = "SELECT * FROM pemesanan WHERE status IN ('L', 'T') ORDER BY tanggal DESC, status ASC";
     $query = $this->db->query($q);
 
     return $query->result();
@@ -137,6 +137,16 @@ class Admin_model extends CI_Model {
 
     $query = $this->db->query($q);
     return $query->result();
+  }
+
+  public function getKonfirmasiByKode($kode){
+    $data = array(
+      'kode_pesan' => $kode,
+      'status' => 'B'
+    );
+
+    $query = $this->db->get_where('pemesanan', $data);
+    return $query->row();
   }
 
 }

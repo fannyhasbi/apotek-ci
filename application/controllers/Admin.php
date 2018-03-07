@@ -156,17 +156,28 @@ class Admin extends CI_Controller {
     }
   }
 
-  public function konfirmasi(){
+  public function konfirmasi($kode = NULL){
     $this->cekLogin();
 
-    $data['pemesanan'] = $this->admin_model->getKonfirmasi();
+    if($kode == NULL){
+      $data['pemesanan'] = $this->admin_model->getKonfirmasi();
 
-    //didapat dari penghapusan obat
-    $data['message'] = $this->session->flashdata('msg');
+      //didapat dari penghapusan obat
+      $data['message'] = $this->session->flashdata('msg');
 
-    $data['view_title'] = 'Konfirmasi Pembelian';
-    $data['view_name'] = 'konfirmasi';
-    $this->load->view('admin/index_view', $data);
+      $data['view_title'] = 'Konfirmasi Pembelian';
+      $data['view_name'] = 'konfirmasi';
+      $this->load->view('admin/index_view', $data);
+    }
+    else {
+      $data['pemesanan'] = $this->admin_model->getKonfirmasiByKode($kode);
+      $data['detail_pemesanan'] = $this->admin_model->getDetailPemesanan($kode);
+      $data['pembeli'] = $this->admin_model->getDetailPembeliByPemesanan($kode);
+
+      $data['view_title'] = 'Detail Transaksi '. $data['pemesanan']->kode_pesan;
+      $data['view_name'] = 'konfirmasi_detail';
+      $this->load->view('admin/index_view', $data);
+    }
   }
 
 }

@@ -19,8 +19,8 @@
           <td><?= 'Rp '. number_format($item->harga, 0, ',', '.'); ?></td>
           <td><?= $item->nama ;?></td>
           <td>
-            <a href="<?= site_url('admin/transaksi/'.$item->kode_pesan);?>" class="text-info"><i class="fa fa-search"></i> Detail</a> | 
-            <a href="<?= site_url('admin/transaksi/'.$item->kode_pesan.'/konfirmasi');?>" class="text-success"><i class="fa fa-check-square"></i> Konfirmasi</a>
+            <a href="<?= site_url('admin/konfirmasi/'.$item->kode_pesan);?>" class="text-info"><i class="fa fa-search"></i> Detail</a> | 
+            <a href="<?= site_url('admin/konfirmasi/'.$item->kode_pesan.'/confirm');?>" class="text-success"><i class="fa fa-check-square"></i> Konfirmasi</a>
           </td>
         </tr>
         <?php endforeach; ?>

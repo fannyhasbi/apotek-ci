@@ -195,4 +195,93 @@ class Admin extends CI_Controller {
     }
   }
 
+  public function cetak_bulanan(){
+    require_once APPPATH."third_party/fpdf/fpdf.php";
+
+    $con = mysqli_connect('localhost', 'root', '', 'apotek') OR die('Error database');
+    $q1 = "
+      SELECT
+      (SELECT COUNT(*)
+        FROM pemesanan
+        WHERE MONTH(tanggal) = MONTH(CURRENT_DATE())
+      ) jumlah_transaksi,
+      (SELECT COUNT(*)
+        FROM pemesanan
+        INNER JOIN pembeli
+          ON pemesanan.id_pemesan = pembeli.id
+        WHERE MONTH(pemesanan.tanggal) = MONTH(CURRENT_DATE())
+      ) jumlah_pembeli
+    ";
+    $h1 = mysqli_query($con, $q1);
+    $r1 = mysqli_fetch_assoc($h1);
+
+    $q2 = "
+      SELECT o.kode_obat AS kode_obat,
+        o.nama AS nama,
+        o.harga AS harga,
+        SUM(d.jumlah) AS terjual,
+        SUM(d.jumlah * o.harga) AS untung
+      FROM pemesanan p
+      INNER JOIN detail_pemesanan d
+        ON p.kode_pesan = d.kode_pesan
+      INNER JOIN obat o
+        ON d.kode_obat = o.kode_obat
+      WHERE MONTH(p.tanggal) = MONTH(CURRENT_DATE())
+        AND YEAR(p.tanggal) = YEAR(CURRENT_DATE())
+      GROUP BY o.kode_obat
+    ";
+    $h2 = mysqli_query($con, $q2);
+
+    // -----------------------
+    // Info kertas A4
+    // -----------------------
+    // panjang = 210
+    // lebar   = 297
+    // margin : 5 5 5 ?
+
+    // -----------------------
+    // Utama
+    // -----------------------
+
+    $this->load->library('cetak');
+
+    $pdf = new Cetak('P', 'mm', 'A4');
+    $pdf->SetMargins(5, 5, 5);
+    $pdf->AddPage();
+
+    // Ringkasan
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(50, 4, 'Total Transaksi : '. $r1['jumlah_transaksi'], 0, 1);
+    $pdf->Cell(50, 4, 'Total Pembeli : '. $r1['jumlah_pembeli'], 0, 1);
+
+    // Tabel
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Ln(5);
+    $pdf->Cell(15, 5, "#KODE", 'TLBR', 0, 'C');
+    $pdf->Cell(80, 5, "OBAT", 'TBR', 0, 'C');
+    $pdf->Cell(20, 5, "HARGA", 'TBR', 0, 'C');
+    $pdf->Cell(20, 5, "TERJUAL", 'TBR', 0, 'C');
+    $pdf->Cell(50, 5, "UNTUNG", 'TBR', 1, 'C');
+
+    $pdf->SetFont('Arial', '', 10);
+    // $pdf->Cell(15, 5, "A0001", 'LB', 0, '');
+    // $pdf->Cell(80, 5, "Acarbose", 'LB', 0, '');
+    // $pdf->Cell(20, 5, "123.000", 'LB', 0, 'C');
+    // $pdf->Cell(20, 5, "12", 'LB', 0, 'C');
+    // $pdf->Cell(50, 5, "50.000", 'LRB', 1, 'R');
+    while($r = mysqli_fetch_assoc($h2)){
+      $pdf->Cell(15, 5, $r['kode_obat'], 'LB', 0, '');
+      $pdf->Cell(80, 5, $r['nama'], 'LB', 0, '');
+      $pdf->Cell(20, 5, number_format($r['harga'], 0, ',', '.'), 'LB', 0, 'R');
+      $pdf->Cell(20, 5, $r['terjual'], 'LB', 0, 'C');
+      $pdf->Cell(50, 5, number_format($r['untung'], 0, ',', '.'), 'LRB', 1, 'R');
+    }
+
+
+    // -----------------------
+    // Output
+    // -----------------------
+    $pdf->Output();
+  }
+
 }

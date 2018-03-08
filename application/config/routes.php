@@ -26,6 +26,7 @@ $route['admin/obat/hapus/(:any)'] = 'admin/hapus_obat/$1';
 $route['admin/konfirmasi'] = 'admin/konfirmasi';
 $route['admin/konfirmasi/(:any)/confirm'] = 'admin/do_konfirmasi/$1';
 $route['admin/konfirmasi/(:any)'] = 'admin/konfirmasi/$1';
+$route['admin/laporan_bulanan'] = 'admin/cetak_bulanan';
 
 $route['default_controller'] = 'home';
 

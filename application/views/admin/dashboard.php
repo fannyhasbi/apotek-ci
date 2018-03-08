@@ -60,7 +60,7 @@
   <div class="box-footer no-border">
     <div class="row text-center">
       <div class="col-md-6">
-        <a href="#" class="btn btn-link btn-lg">Unduh Laporan Bulanan</a>
+        <a href="<?= site_url('admin/laporan_bulanan'); ?>" class="btn btn-link btn-lg">Unduh Laporan Bulanan</a>
       </div>
       <div class="col-md-6">
         <a href="#" class="btn btn-link btn-lg">Unduh Laporan Tahunan</a>

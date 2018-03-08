@@ -56,6 +56,17 @@
   <div class="box-body border-radius-none">
     <div class="chart" id="line-chart" style="height: 250px;"></div>
   </div>
+
+  <div class="box-footer no-border">
+    <div class="row text-center">
+      <div class="col-md-6">
+        <a href="#" class="btn btn-link btn-lg">Unduh Laporan Bulanan</a>
+      </div>
+      <div class="col-md-6">
+        <a href="#" class="btn btn-link btn-lg">Unduh Laporan Tahunan</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -72,7 +83,7 @@ var line = new Morris.Bar({
   xkey             : 'tanggal',
   ykeys            : ['item1', 'item2'],
   labels           : ['Transaksi', 'Obat Terjual'],
-  barColors        : ['#f39c12', '#00a65a'],
+  barColors        : ['#ff851b', '#dd4b39'],
   hideHover        : 'auto',
   gridTextColor    : '#fff',
   gridStrokeWidth  : 0.4

@@ -2,21 +2,22 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin_model extends CI_Model {
+  public function __construct(){
+    date_default_timezone_set('Asia/Jakarta');
+  }
   
-  public function checkAdmin($username, $pass){
-    $query = "SELECT * FROM admin WHERE username = '". $username ."' AND password = '". $pass ."'";
-    return $this->db->query($query);
+  public function checkAdmin($username){
+    return $this->db->get_where('admin', ['username' => $username]);
   }
 
   public function getAdmin($username){
-    $q = "SELECT * FROM admin WHERE username = '". $username ."'";
-    $query = $this->db->query($q);
+    $query = $this->db->get_where('admin', ['username' => $username]);
 
     return $query->row();
   }
 
   public function getPemesanan(){
-    $q = "SELECT * FROM pemesanan ORDER BY tanggal DESC, status ASC";
+    $q = "SELECT * FROM pemesanan WHERE status IN ('L', 'T') ORDER BY tanggal DESC, status ASC";
     $query = $this->db->query($q);
 
     return $query->result();
@@ -126,6 +127,36 @@ class Admin_model extends CI_Model {
       return true;
     else
       return false;
+  }
+
+  public function getKonfirmasi(){
+    $q = "
+      SELECT pemesanan.*, pembeli.nama
+      FROM pemesanan pemesanan
+      INNER JOIN pembeli
+        ON pemesanan.id_pemesan = pembeli.id
+      WHERE pemesanan.status IN ('B', 'T')
+    ";
+
+    $query = $this->db->query($q);
+    return $query->result();
+  }
+
+  public function getKonfirmasiByKode($kode){
+    $q = "SELECT * FROM pemesanan WHERE kode_pesan = '". $kode ."' AND status IN ('B', 'T')";
+
+    $query = $this->db->query($q);
+    return $query->row();
+  }
+
+  public function updateStatusPemesanan($kode){
+    $data = array(
+      'status' => 'L',
+      'konfirmasi' => date('Y-m-d')
+    );
+
+    $this->db->where('kode_pesan', $kode);
+    $this->db->update('pemesanan', $data);
   }
 
 }

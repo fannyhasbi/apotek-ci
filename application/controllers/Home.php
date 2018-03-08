@@ -23,6 +23,16 @@ class Home extends CI_Controller {
     return $h;
   }
 
+  private function generateBukti(){
+    $bukti = "";
+    $n = "1234567890";
+    for($i=0;$i<8;$i++){
+      $bukti .= $n[rand(0, strlen($n) - 1)];
+    }
+
+    return 'bukti_'.$bukti;
+  }
+
   public function index(){
     $this->cekSession();    
     $this->load->view('home/beranda');
@@ -123,22 +133,66 @@ class Home extends CI_Controller {
 
       if($cek_kode->num_rows() > 0){
         $pemesanan = $this->home_model->getStatusPemesananByKode($kode_pesan, $identitas);
-        $user_info = $this->home_model->getUserInfo($pemesanan->id_pemesan);
 
         if($pemesanan->status == 'L'){
-          $date = explode("-", $pemesanan->konfirmasi);
-          $date = $date[2] ."/". $date[1] ."/". $date[0];
-          $message = '<p class="alert alert-success text-center">Pemesanan <strong>'. $kode_pesan .'</strong> telah dikonfirmasi sebelumnya pada '. $date .' oleh '. $user_info->nama .'</p>';
+          // Sudah lunas dibayar
+          $message = '<p>Pesanan '. $kode_pesan .' sudah dikonfirmasi.</p>';
+          $this->session->set_flashdata('msg', $message);
+        }
+        elseif($pemesanan->status == 'T') {
+          // Menunggu konfirmasi admin
+          $message = '<p>Pesanan '. $kode_pesan .' sedang menunggu konfirmasi.</p>';
+          $this->session->set_flashdata('msg', $message);
         }
         else {
-          if($this->home_model->updateStatusPemesanan($kode_pesan))
-            $message = '<p class="alert alert-success text-center">Pemesanan <strong>'. $kode_pesan .'</strong> berhasil dikonfirmasi atas nama '. $user_info->nama .'</p>';
+          // Belum konfirmasi
+          $bukti = $this->generateBukti();
+
+          $config['upload_path']   = './foto/bukti/';
+          $config['file_name']     = $bukti;
+          $config['allowed_types'] = 'jpg|png';
+          $config['max_size']      = 300;
+
+          $this->load->library('upload', $config);
+
+          if ( ! $this->upload->do_upload('bukti'))
+          {
+            $message = '<p>'. $this->upload->display_errors() .'</p>';
+            $this->session->set_flashdata('msg', $message);
+          }
           else
-            $message = '<p class="alert alert-danger text-center"><b>Terjadi kesalahan</b>, konfirmasi pembelian gagal.</p>';
+          {
+            $data = $this->upload->data();
+            $this->home_model->addBukti($kode_pesan, $data['file_name']);
+            $this->home_model->updateBukti($kode_pesan);
+
+            $message = '<p>Bukti berhasil diupload. Silahkan tunggu sampai admin mengkonfirmasi dan mengirimkan pesanan anda.</p>';
+            $this->session->set_flashdata('msg', $message);
+          }
         }
 
-        $this->session->set_flashdata('msg', $message);
+
         redirect(site_url('konfirmasi'));
+
+        // Untuk halaman admin
+        // Sementara edit bagian home dulu sebelum ke admin
+        // $pemesanan = $this->home_model->getStatusPemesananByKode($kode_pesan, $identitas);
+        // $user_info = $this->home_model->getUserInfo($pemesanan->id_pemesan);
+        //
+        // if($pemesanan->status == 'L'){
+        //   $date = explode("-", $pemesanan->konfirmasi);
+        //   $date = $date[2] ."/". $date[1] ."/". $date[0];
+        //   $message = '<p class="alert alert-success text-center">Pemesanan <strong>'. $kode_pesan .'</strong> telah dikonfirmasi sebelumnya pada '. $date .' oleh '. $user_info->nama .'</p>';
+        // }
+        // else {
+        //   if($this->home_model->updateStatusPemesanan($kode_pesan))
+        //     $message = '<p class="alert alert-success text-center">Pemesanan <strong>'. $kode_pesan .'</strong> berhasil dikonfirmasi atas nama '. $user_info->nama .'</p>';
+        //   else
+        //     $message = '<p class="alert alert-danger text-center"><b>Terjadi kesalahan</b>, konfirmasi pembelian gagal.</p>';
+        // }
+
+        // $this->session->set_flashdata('msg', $message);
+        // redirect(site_url('konfirmasi'));
       }
       else {
         $message = '<p class="alert alert-danger text-center">Tidak ditemukan kode pemesanan: <strong>'. $kode_pesan .'</strong></p>';
@@ -148,7 +202,6 @@ class Home extends CI_Controller {
       }
     }
     else {
-      $data['view_title'] = 'Konfirmasi Pembayaran';
       $data['view_name'] = 'konfirmasi';
       $data['message'] = $this->session->flashdata('msg');
 
@@ -203,7 +256,7 @@ class Home extends CI_Controller {
 
       $new_kode_pesan = "";
       foreach (str_split($kode_pesan) as $val) {
-        $new_kode_pesan .= $val ." ";
+        $new_kode_pesan .= $val;
       }
 
       $pesanFlash  = '<h1>Terima Kasih '. $pembeli->nama .'</h1>';
@@ -251,6 +304,73 @@ class Home extends CI_Controller {
     }
 
     echo json_encode($data);
+  }
+
+  public function print_struk($kode_pesan_route = NULL){
+    $this->cekSession();
+    if($kode_pesan_route != NULL){
+      $kode = $kode_pesan_route;
+      $cek_kode = $this->home_model->checkKodeByKode($kode);
+
+      if($cek_kode->num_rows() > 0){
+        $detail = $this->home_model->getInfoPemesanan($kode);
+
+        $tgl = explode("-", $detail->tanggal);
+        $new_tgl = "";
+        switch($tgl[1]){
+          case '01': $new_tgl = "Januari"; break;
+          case '02': $new_tgl = "Februari"; break;
+          case '03': $new_tgl = "Maret"; break;
+          case '04': $new_tgl = "April";
+          case '05': $new_tgl = "Mei"; break;
+          case '06': $new_tgl = "Juni"; break;
+          case '07': $new_tgl = "Juli"; break;
+          case '08': $new_tgl = "Agustus"; break;
+          case '09': $new_tgl = "September"; break;
+          case '10': $new_tgl = "Oktober"; break;
+          case '11': $new_tgl = "November"; break;
+          case '12': $new_tgl = "Desember"; break;
+        }
+
+        $date = str_split($tgl[2]);
+        $tgl[2] = $date[0] == '0' ? $date[1] : $date[0].$date[1];
+
+        $tgl = $tgl[2] ." ". $new_tgl ." ". $tgl[0];
+
+        //menampilkan detail
+        $data['kode_pesan'] = $kode;
+        $data['nama'] = $detail->nama;
+        $data['harga'] = 'Rp '. number_format($detail->harga, 0, ',', '.');
+        $data['tanggal'] = $tgl;
+        $data['status'] = $detail->status;
+        $data['detail'] = TRUE;
+
+        $items = $this->home_model->getDetailPemesanan($kode);
+        $data['items'] = $items;
+
+        $this->load->view('home/print_struk', $data);
+      }
+      else {
+        $message = '<div class="text-danger lead" style="padding-top: 10px">Tidak ditemukan kode pemesanan: <strong>'. $kode .'</strong></div>';
+        $this->session->set_flashdata('msg', $message);
+        redirect(site_url('cek'));
+      }
+    }
+    else {
+      $data = array(
+        'view_name' => 'cek',
+        'message'   => $this->session->flashdata('msg'),
+        'detail'    => $this->session->flashdata('detail'),
+        'kode_pesan'=> $this->session->flashdata('kode_pesan'),
+        'nama'      => $this->session->flashdata('nama'),
+        'harga'     => $this->session->flashdata('harga'),
+        'tanggal'   => $this->session->flashdata('tanggal'),
+        'status'    => $this->session->flashdata('status'),
+        'items'     => $this->session->flashdata('items')
+      );
+
+      $this->load->view('home/print_struk', $data);
+    }
   }
 
 }

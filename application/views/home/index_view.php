@@ -1,6 +1,15 @@
 <?php
-$q = "SELECT COUNT(*) AS jumlah FROM keranjang WHERE id_session = '". $this->session->userdata('id_session') ."'";
-$jumlah_keranjang = $this->db->query($q)->row()->jumlah;
+$q1 = "SELECT COUNT(*) AS jumlah FROM keranjang WHERE id_session = '". $this->session->userdata('id_session') ."'";
+$q2 = "
+  SELECT o.nama AS nama_obat
+  FROM keranjang k
+  INNER JOIN obat o
+    ON k.kode_obat = o.kode_obat
+  WHERE id_session = '". $this->session->userdata('id_session') ."'";
+
+$jumlah_keranjang = $this->db->query($q1)->row()->jumlah;
+
+$detail_keranjang = $this->db->query($q2)->result();
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,11 +67,23 @@ $jumlah_keranjang = $this->db->query($q)->row()->jumlah;
                   <li class="header">Barang di keranjang : <?= $jumlah_keranjang; ?></li>
                   <li>
                     <ul class="menu">
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-users text-aqua"></i> Acarbose
-                        </a>
-                      </li>
+                      <?php
+                      $num = 1;
+                      function classDefiner($num){
+                        if($num == 1) $c = 'class="fa fa-medkit text-aqua"';
+                        elseif($num % 3 == 0) $c = 'class="fa fa-medkit text-green"';
+                        elseif($num % 5 == 0) $c = 'class="fa fa-medkit text-yellow"';
+                        else $c = 'class="fa fa-medkit text-red"';
+                        return $c;
+                      }
+                      foreach($detail_keranjang as $item):
+                      ?>
+                        <li>
+                          <a href="#">
+                            <i <?= classDefiner($num); ?>></i> <?= $item->nama_obat; ?>
+                          </a>
+                        </li>
+                      <?php $num++; endforeach; ?>
                     </ul>
                   </li>
                   <li class="footer"><a href="<?= site_url('beli'); ?>">Lihat semua</a></li>

@@ -20,21 +20,25 @@
 <hr>
 <div class="box box-primary">
   <div class="box-body">
-    <table class="table table-bordered table-striped">
-      <tr>
-        <th>Nama Obat</th>
-        <th>Jumlah</th>
-        <th>Harga<small>/pcs</small></th>
-        <th>Subtotal</th>
-      </tr>
-      <?php foreach($items as $item): ?>
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
         <tr>
-          <td><?= $item->nama; ?></td>
-          <td><?= $item->jumlah; ?></td>
-          <td><?= number_format($item->harga, 0, ',', '.'); ?></td>
-          <td><?= number_format($item->subtotal, 0, ',', '.') ; ?></td>
+          <th>Nama Obat</th>
+          <th>Jumlah</th>
+          <th>Harga<small>/pcs</small></th>
+          <th>Subtotal</th>
         </tr>
-      <?php endforeach; ?>
+      </thead>
+      <tbody>
+        <?php foreach($items as $item): ?>
+          <tr>
+            <td><?= $item->nama; ?></td>
+            <td><?= $item->jumlah; ?></td>
+            <td><?= number_format($item->harga, 0, ',', '.'); ?></td>
+            <td><?= number_format($item->subtotal, 0, ',', '.') ; ?></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
     </table>
 
     <div class="col-md-offset-6 col-md-6">
@@ -64,6 +68,10 @@
           <?php endif; ?>
         </tr>
       </table>
+
+      <?php if($status == 'L'){ ?>
+        <a href="<?= site_url('print_struk/'.$kode_pesan); ?>" class="btn btn-info">CETAK STRUK</a>
+      <?php } ?>
     </div>
   </div>
 </div>

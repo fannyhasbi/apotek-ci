@@ -1,3 +1,7 @@
+<?php
+$q = "SELECT COUNT(*) AS jumlah_konfirmasi FROM pemesanan WHERE status IN ('B', 'T')";
+$jumlah_konfirmasi = $this->db->query($q)->row()->jumlah_konfirmasi;
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,6 +92,16 @@
             <li<?= uri_string() == 'admin/obat/tambah' ? ' class="active"' : '' ?>><a href="<?= site_url('admin/obat/tambah'); ?>"><i class="fa fa-circle-o text-success"></i> Tambah Obat</a></li>
           </ul>
         </li>
+        <li<?= uri_string() == 'admin/konfirmasi' ? ' class="active"' : '' ?>>
+          <a href="<?= site_url('admin/konfirmasi');?>">
+            <i class="fa fa-check-square-o"></i> <span>Konfirmasi</span>
+            <?php if($jumlah_konfirmasi > 0) { ?>
+              <span class="pull-right-container">
+                <small class="label pull-right bg-orange"><?= $jumlah_konfirmasi; ?></small>
+              </span>
+            <?php } ?>
+          </a>
+        </li>
         <li<?= uri_string() == 'admin/transaksi' ? ' class="active"' : '' ?>>
           <a href="<?= site_url('admin/transaksi');?>">
             <i class="fa fa-money"></i> <span>Transaksi</span>
@@ -121,16 +135,13 @@
     $('.sidebar-menu').tree();
   });
 
-  <?php if(uri_string() == 'admin/obat' || uri_string() == 'admin/transaksi'){ ?>
-    const x = (window.innerWidth > 768) ? false : true;
-    $(function() {
-      $("#tabeldata").DataTable({
-        "scrollX": x,
-        "pagingType": "first_last_numbers"
-      });
+  const x = (window.innerWidth > 768) ? false : true;
+  $(function() {
+    $("#tabeldata").DataTable({
+      "scrollX": x,
+      "pagingType": "first_last_numbers"
     });
-
-  <?php } ?>
+  });
 </script>
 </body>
 </html>

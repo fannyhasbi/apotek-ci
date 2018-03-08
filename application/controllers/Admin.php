@@ -35,22 +35,29 @@ class Admin extends CI_Controller {
       $password = $this->input->post('password');
 
       //jika admin terdaftar
-      if($this->admin_model->checkAdmin($username, $password)->num_rows() > 0){
+      if($this->admin_model->checkAdmin($username)->num_rows() > 0){
         $admin = $this->admin_model->getAdmin($username);
 
-        $data_session = array(
-          'login_admin' => true,
-          'username'    => $admin->username,
-          'nama_admin'  => $admin->nama
-        );
+        if(password_verify($password, $admin->password)){
+          $data_session = array(
+            'login_admin' => true,
+            'username'    => $admin->username,
+            'nama_admin'  => $admin->nama
+          );
 
-        $this->session->set_userdata($data_session);
-        redirect(site_url('admin'));
+          $this->session->set_userdata($data_session);
+        }
+        else {
+          $message = '<div class="alert alert-danger">Username atau password salah</div>';
+          $this->session->set_flashdata('msg', $message);
+        }
       }
       else {
         $message = '<div class="alert alert-danger">Username atau password salah</div>';
         $this->session->set_flashdata('msg', $message);
       }
+
+      redirect(site_url('admin/login'));
     }
     else {
       $data['message'] = $this->session->flashdata('msg');
@@ -146,6 +153,45 @@ class Admin extends CI_Controller {
     else{
       $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Obat dengan kode <mark>'. $kode ."</mark> gagal dihapus</div>");
       redirect(site_url('admin/obat'));
+    }
+  }
+
+  public function konfirmasi($kode = NULL){
+    $this->cekLogin();
+
+    if($kode == NULL){
+      $data['pemesanan'] = $this->admin_model->getKonfirmasi();
+
+      $data['message'] = $this->session->flashdata('msg');
+
+      $data['view_title'] = 'Konfirmasi Pembelian';
+      $data['view_name'] = 'konfirmasi';
+      $this->load->view('admin/index_view', $data);
+    }
+    else {
+      $data['pemesanan'] = $this->admin_model->getKonfirmasiByKode($kode);
+      $data['detail_pemesanan'] = $this->admin_model->getDetailPemesanan($kode);
+      $data['pembeli'] = $this->admin_model->getDetailPembeliByPemesanan($kode);
+
+      $data['view_title'] = 'Detail Transaksi '. $data['pemesanan']->kode_pesan;
+      $data['view_name'] = 'konfirmasi_detail';
+      $this->load->view('admin/index_view', $data);
+    }
+  }
+
+  public function do_konfirmasi($kode = NULL){
+    $this->cekLogin();
+
+    if($kode === NULL){
+      // Belum ada kodenya
+      redirect(site_url('admin/konfirmasi'));
+    }
+    else {
+      $this->admin_model->updateStatusPemesanan($kode);
+
+      $this->session->set_flashdata('msg', 'Pesanan '. $kode .' berhasil dikonfirmasi');
+
+      redirect(site_url('admin/konfirmasi'));
     }
   }
 

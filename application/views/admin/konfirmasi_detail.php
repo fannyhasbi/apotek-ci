@@ -18,6 +18,8 @@
       <?php endforeach; ?>
     </table>
 
+    <hr>
+
     <div class="row">
       <div class="col-md-6">
         <h4 class="lead">Keterangan Tambahan</h4>
@@ -39,8 +41,15 @@
             <td><?= 'Rp '. number_format($pemesanan->harga, 0, ',', '.'); ?></td>
           </tr>
           <tr>
-            <th>Konfirmasi:</th>
-            <td><?= $pemesanan->konfirmasi; ?></td>
+            <th>Bukti:</th>
+            <?php
+            if($pemesanan->bukti == null){
+              echo '<td>Belum mengirim bukti</td>';
+            }
+            else {
+              echo '<td><a href="'. base_url('foto/bukti/'.$pemesanan->bukti) .'" target="_blank">Lihat bukti</a></td>';
+            }
+            ?>
           </tr>
           <?php
           if($pemesanan->status == 'B'){
@@ -61,6 +70,7 @@
             <td><?= $temp_msg; ?></td>
           </tr>
         </table>
+        <a href="<?= site_url('admin/konfirmasi/'.$this->uri->segment(3).'/confirm'); ?>" class="btn btn-success btn-block pull-right">KONFIRMASI</a>
       </div>
     </div>
 
